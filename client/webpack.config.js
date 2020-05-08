@@ -1,18 +1,13 @@
-// This is main configuration object.
-// Here you write different options and tell Webpack what to do
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  // Path to your entry point. From this file Webpack will begin his work
   entry: "./src/index.js",
-
-  // Path and filename of your result bundle.
-  // Webpack will bundle all JavaScript into this file
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
   },
+  parser: "babel-eslint",
   devtool: "source-map",
   module: {
     rules: [

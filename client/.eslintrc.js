@@ -4,9 +4,9 @@ module.exports = {
     es6: true,
   },
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
     "airbnb",
+    "prettier",
+    "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
   ],
   globals: {
@@ -20,8 +20,9 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: "module",
   },
-  plugins: ["react"],
+  plugins: ["react", "prettier"],
   rules: {
+    "prettier/prettier": ["error"],
     quotes: [2, "double"],
     "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
   },
