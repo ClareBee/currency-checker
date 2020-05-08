@@ -1,15 +1,18 @@
+require("dotenv").config();
+
 const express = require("express");
 const fetch = require("node-fetch");
 const path = require("path");
 const cors = require("cors");
 
 // TODO: move to env file
-const API_URL = "http://data.fixer.io/api/";
-const API_KEY = "14fdb7f80578d3cb6775222e27f9df1b";
+const API_URL = process.env.FIXER_URL;
+const API_KEY = process.env.FIXER_KEY;
+const CLIENT = process.env.CLIENT_URL;
 
 const app = express();
 const port = process.env.PORT || 3000;
-
+console.log(process.env);
 // move to .env file
 const corsOptions = {
   origin: "http://localhost:8080",
