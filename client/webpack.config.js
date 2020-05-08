@@ -1,5 +1,7 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const isDevelopment = process.env.NODE_ENV === "development";
 
 module.exports = {
   entry: "./src/index.js",
@@ -7,7 +9,9 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
   },
-  parser: "babel-eslint",
+  resolve: {
+    extensions: [".js", ".jsx", ".scss"],
+  },
   devtool: "source-map",
   module: {
     rules: [
@@ -15,7 +19,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: ["babel-loader", "eslint-loader"],
+          loader: "babel-loader",
         },
       },
       {
@@ -27,19 +31,38 @@ module.exports = {
         ],
       },
       {
-        test: /\.(sc|c)ss$/,
-        use: [
+        test: /\.module\.s(a|c)ss$/,
+        loader: [
+          isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
-          },
-          {
-            loader: "postcss-loader",
+            options: {
+              modules: true,
+              sourceMap: isDevelopment,
+            },
           },
           {
             loader: "sass-loader",
             options: {
-              implementation: require("sass"),
+              sourceMap: isDevelopment,
             },
+          },
+        ],
+      },
+      {
+        test: /\.s(a|c)ss$/,
+        exclude: /\.module.(s(a|c)ss)$/,
+        loader: [
+          isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: isDevelopment,
+            },
+          },
+          {
+            loader: "postcss-loader", // postcss.config.js
           },
         ],
       },
@@ -53,6 +76,10 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: "./src/index.html",
       filename: "./index.html",
+    }),
+    new MiniCssExtractPlugin({
+      filename: isDevelopment ? "[name].css" : "[name].[hash].css", // hash for cache busting
+      chunkFilename: isDevelopment ? "[id].css" : "[id].[hash].css",
     }),
   ],
 };
