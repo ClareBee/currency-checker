@@ -1,0 +1,75 @@
+/* set base values */
+$text-base-size: 1rem;
+$text-scale-ratio: 1.2;
+$text-heading-colour: $dark-grey-colour;
+
+$heading-line-height: 1.8rem;
+$body-line-height: 1.6rem;
+
+// @include breakpoint(md) {
+//   $text-base-size: 1.25em;
+//   $text-scale-ratio: 1.25;
+// }
+
+/* type scale */
+$text-xs: 1rem / $text-scale-ratio * $text-scale-ratio;
+$text-sm: 1rem / $text-scale-ratio;
+$text-md: 1rem * $text-scale-ratio;
+$text-lg: 1rem * $text-scale-ratio * $text-scale-ratio;
+$text-xl: 1rem * $text-scale-ratio * $text-scale-ratio * $text-scale-ratio;
+$text-xxl: 1rem * $text-scale-ratio * $text-scale-ratio * $text-scale-ratio *
+  $text-scale-ratio;
+
+body {
+  color: $font-colour;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: $text-base-size;
+}
+
+h1,
+h2,
+form legend {
+  color: $text-heading-colour;
+  margin-bottom: $space-xxs;
+  line-height: $heading-line-height;
+}
+
+.secondary-text {
+  color: $secondary-text-colour;
+}
+/* text size */
+
+h1,
+.text--xxl {
+  font-size: $text-xxl;
+}
+
+h2,
+.text--xl {
+  font-size: $text-xl;
+}
+
+h3,
+.text--lg {
+  font-size: $text-lg;
+}
+
+h4,
+.text--md {
+  font-size: $text-md;
+}
+
+.text--sm,
+small {
+  font-size: $text-sm;
+}
+
+.text--xs {
+  font-size: $text-xs;
+}
+
+p {
+  font-size: 1rem;
+  line-height: $body-line-height;
+}

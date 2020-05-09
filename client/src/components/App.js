@@ -1,6 +1,6 @@
 import React from "react";
 import FormPage from "./pages/FormPage";
-import Header from "./layout/PageHeader";
+import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 
 //TODO: discover endpoint on server?

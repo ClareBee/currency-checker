@@ -1,0 +1,24 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  &__table {
+    min-width: 350px;
+    border-collapse: collapse;
+    th,
+    td {
+      text-align: left;
+      font-weight: normal;
+    }
+    tr:nth-child(even) {
+      background-color: $mid-grey-colour;
+    }
+    tr:nth-child(odd) {
+      background-color: $light-grey-colour;
+    }
+  }
+  &__top-header {
+    background-color: $dark-grey-colour;
+    font-weight: bold;
+  }
+}

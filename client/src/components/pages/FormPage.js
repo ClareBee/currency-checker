@@ -30,6 +30,13 @@ function FormPage({ currencies }) {
     setMultiplier(amount);
     setIsFormView(false);
   };
+
+  const reset = () => {
+    setIsFormView(true);
+    setSelectedCurrencies([]);
+    setMultiplier(1);
+    setHistoryData([]);
+  };
   const apiGetExchangeRate = (base) => {
     axios
       .get("http://localhost:3000/api/latest")
@@ -47,7 +54,7 @@ function FormPage({ currencies }) {
       });
   };
 
-  const apiGetHistoryRates = (targetCurrencies) => {
+  const apiGetHistoryRates = () => {
     axios
       .get("http://localhost:3000/api/history", {
         params: {
@@ -86,6 +93,7 @@ function FormPage({ currencies }) {
         <Form
           rates={result}
           handleSelectedCurrencies={handleSelectedCurrencies}
+          baseCurrency={BASE_CURRENCY}
         />
       ) : (
         <RateHistory
@@ -93,6 +101,7 @@ function FormPage({ currencies }) {
           currencies={selectedCurrencies}
           baseCurrency={BASE_CURRENCY}
           multiplier={multiplier}
+          reset={reset}
         />
       )}
     </Main>

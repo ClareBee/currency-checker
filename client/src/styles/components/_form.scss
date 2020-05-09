@@ -1,0 +1,31 @@
+.currency {
+  &__input {
+    width: 100%;
+    background-color: $light-grey-colour;
+    border: 1px solid $dark-grey-colour;
+    border-radius: 5px;
+
+    line-height: 1.8rem;
+    font: inherit;
+    padding: $space-xs;
+  }
+  &__label {
+    font-weight: bold;
+  }
+
+  &__list {
+    border: 1px solid $dark-grey-colour;
+    border-radius: 4px;
+  }
+  &__row {
+    padding: $space-xs $space-sm;
+    label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  &__row:nth-child(even) {
+    background-color: $mid-grey-colour;
+  }
+}

@@ -1,11 +1,16 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-
 import { formatDate } from "../utils/formatting";
 
-function RateHistory({ historyData, currencies, baseCurrency, multiplier }) {
+function RateHistory({
+  historyData,
+  currencies,
+  baseCurrency,
+  multiplier,
+  reset,
+}) {
   const resetForm = () => {
-    console.log("resetting");
+    reset();
   };
 
   const formatRows = () => {
@@ -15,7 +20,7 @@ function RateHistory({ historyData, currencies, baseCurrency, multiplier }) {
           <tr key={date}>
             <th scope="row">{formatDate(date)}</th>
             {Object.values(rates).map((rate) => (
-              <td key={uuidv4()}>{rate * multiplier}</td>
+              <td key={uuidv4()}>{(rate * multiplier).toFixed(2)}</td>
             ))}
           </tr>
         );
@@ -23,10 +28,9 @@ function RateHistory({ historyData, currencies, baseCurrency, multiplier }) {
     }
   };
   const formatHeaders = () => {
-    console.log(historyData);
     if (historyData.length > 0) {
       return Object.keys(historyData[0].rates).map((key) => (
-        <th scope="col" key={key}>
+        <th scope="col" key={key} className="results__top-header">
           {key}
         </th>
       ));
@@ -39,19 +43,27 @@ function RateHistory({ historyData, currencies, baseCurrency, multiplier }) {
     )}`;
   };
   return (
-    <div>
-      History
-      <table>
-        <caption className="hidden">{captionText()}</caption>
+    <div className="results">
+      <div className="results__header">
+        <h3 className="results__title">
+          {multiplier}
+          {baseCurrency}
+        </h3>
+      </div>
+      <p className="secondary-text">Amount entered in step 1</p>
+      <table className="results__table">
+        <caption className="screenreader-only">{captionText()}</caption>
         <tbody>
           <tr>
-            <th>Date</th>
+            <th className="results__top-header">Date</th>
             {formatHeaders()}
           </tr>
           {formatRows()}
         </tbody>
       </table>
-      <button onClick={resetForm}>Reset Form</button>
+      <button className="btn btn--primary" onClick={resetForm}>
+        Reset Form
+      </button>
     </div>
   );
 }
