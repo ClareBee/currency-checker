@@ -41,8 +41,10 @@ app.get("/api/latest", cors(corsOptions), (req, res, next) => {
 
 app.get("/api/history", cors(corsOptions), (req, res, next) => {
   // TODO pass in on request?
-  const daysAgo = 5;
-  const base = "EUR";
+  // const daysAgo = 5;
+  // const base = "EUR";
+  const base = req.query.baseCurrency;
+  const daysAgo = Number(req.query.daysAgo);
   const currencies = req.query.currencies;
   console.log("currencies", currencies);
   if (currencies.length < 1) {

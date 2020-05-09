@@ -45,6 +45,8 @@ function FormPage({ currencies }) {
       .get("http://localhost:3000/api/history", {
         params: {
           currencies: selectedCurrencies,
+          daysAgo: 5,
+          baseCurrency: BASE_CURRENCY,
         },
       })
       .then((response) => {
