@@ -40,7 +40,9 @@ app.get("/api/latest", cors(corsOptions), (req, res, next) => {
 });
 
 app.get("/api/history", cors(corsOptions), (req, res, next) => {
-  const date = dateToday();
+  // TODO pass in on request?
+  const daysAgo = 5;
+  const date = startDate(daysAgo);
   const base = "EUR";
   const currencies = "GBP,JPY,EUR";
 
@@ -60,11 +62,13 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/dist/index.html"));
 });
 
-function dateToday() {
-  const currentTimestamp = Date.now();
-  const dateObject = new Date(currentTimestamp);
-  const day = dateObject.getDate();
-  const month = dateObject.getMonth() + 1;
-  const year = dateObject.getFullYear();
-  return `${year}-${month}-${day}`;
+function startDate(daysAgo) {
+  let startPoint = new Date();
+  startPoint.setDate(startPoint.getDate() - daysAgo);
+  const day = startPoint.getDate();
+  const month = startPoint.getMonth() + 1;
+  const year = startPoint.getFullYear();
+  const monthDisplay = month < 10 ? `0${month}` : month;
+  const dayDisplay = day < 10 ? `0${day}` : day;
+  return `${year}-${monthDisplay}-${dayDisplay}`;
 }
