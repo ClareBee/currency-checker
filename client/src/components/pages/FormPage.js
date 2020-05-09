@@ -11,6 +11,7 @@ function FormPage({ currencies }) {
   const [error, setError] = useState("");
   const [isFormView, setIsFormView] = useState(false);
   const [selectedCurrencies, setSelectedCurrencies] = useState(["USD", "NZD"]);
+  const [historyData, setHistoryData] = useState([]);
 
   useEffect(() => {
     apiGetExchangeRate("EUR");
@@ -43,7 +44,10 @@ function FormPage({ currencies }) {
     axios
       .get("http://localhost:3000/api/history")
       .then((response) => {
-        console.log(response);
+        const historyRates = response.data.data.map(({ date, rates }) => {
+          return { date, rates };
+        });
+        setHistoryData(historyRates);
       })
       .catch((error) => {
         setError(error);
@@ -61,7 +65,15 @@ function FormPage({ currencies }) {
         currencies.includes(currency) && currency !== BASE_CURRENCY
     );
   };
-  return <Main>{isFormView ? <Form rates={result} /> : <RateHistory />}</Main>;
+  return (
+    <Main>
+      {isFormView ? (
+        <Form rates={result} />
+      ) : (
+        <RateHistory historyData={historyData} />
+      )}
+    </Main>
+  );
 }
 
 export default FormPage;

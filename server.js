@@ -4,7 +4,7 @@ const express = require("express");
 const fetch = require("node-fetch");
 const path = require("path");
 const cors = require("cors");
-
+const async = require("async");
 // TODO: move to env file
 const API_URL = process.env.FIXER_URL;
 const API_KEY = process.env.FIXER_KEY;
@@ -42,20 +42,28 @@ app.get("/api/latest", cors(corsOptions), (req, res, next) => {
 app.get("/api/history", cors(corsOptions), (req, res, next) => {
   // TODO pass in on request?
   const daysAgo = 5;
-  const date = startDate(daysAgo);
   const base = "EUR";
   const currencies = "GBP,JPY,EUR";
 
-  const url = `${API_URL}${date}?access_key=${API_KEY}&base=${base}&symbols=${currencies}`;
-
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      res.send({ data });
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+  const urls = [];
+  for (let i = 1; i <= daysAgo; i++) {
+    let date = startDate(i);
+    urls.push(
+      `${API_URL}${date}?access_key=${API_KEY}&base=${base}&symbols=${currencies}`
+    );
+  }
+  async.mapLimit(
+    urls,
+    1,
+    async function (url) {
+      const response = await fetch(url);
+      return response.json();
+    },
+    (err, results) => {
+      if (err) throw res.send(err);
+      res.send({ data: results });
+    }
+  );
 });
 
 app.get("*", (req, res) => {

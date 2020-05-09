@@ -1,15 +1,16 @@
 import React from "react";
 
-function History() {
+function RateHistory({ historyData }) {
   const resetForm = () => {
     console.log("resetting");
   };
   return (
     <div>
       History
+      {JSON.stringify(historyData)}
       <button onClick={resetForm}>Reset Form</button>
     </div>
   );
 }
 
-export default History;
+export default RateHistory;
