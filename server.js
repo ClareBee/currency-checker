@@ -40,11 +40,11 @@ app.get("/api/latest", cors(corsOptions), (req, res, next) => {
 });
 
 app.get("/api/history", cors(corsOptions), (req, res, next) => {
-  const date = "2020-03-10";
+  const date = dateToday();
   const base = "EUR";
   const currencies = "GBP,JPY,EUR";
 
-  const url = `${API_URL}${date}?access_key=${API_KEY}&base=EUR&symbols=${currencies}`;
+  const url = `${API_URL}${date}?access_key=${API_KEY}&base=${base}&symbols=${currencies}`;
 
   fetch(url)
     .then((res) => res.json())
@@ -59,3 +59,12 @@ app.get("/api/history", cors(corsOptions), (req, res, next) => {
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/dist/index.html"));
 });
+
+function dateToday() {
+  const currentTimestamp = Date.now();
+  const dateObject = new Date(currentTimestamp);
+  const day = dateObject.getDate();
+  const month = dateObject.getMonth() + 1;
+  const year = dateObject.getFullYear();
+  return `${year}-${month}-${day}`;
+}
