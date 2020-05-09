@@ -9,9 +9,10 @@ function FormPage({ currencies }) {
   const [result, setResult] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [error, setError] = useState("");
-  const [isFormView, setIsFormView] = useState(false);
+  const [isFormView, setIsFormView] = useState(true);
   const [selectedCurrencies, setSelectedCurrencies] = useState(["USD", "NZD"]);
   const [historyData, setHistoryData] = useState([]);
+  const [multiplier, setMultiplier] = useState(1);
 
   useEffect(() => {
     apiGetExchangeRate("EUR");
@@ -23,6 +24,12 @@ function FormPage({ currencies }) {
     }
   }, [selectedCurrencies]);
 
+  const handleSelectedCurrencies = (currencies, amount) => {
+    console.log(currencies, amount);
+    setSelectedCurrencies(currencies);
+    setMultiplier(amount);
+    setIsFormView(false);
+  };
   const apiGetExchangeRate = (base) => {
     axios
       .get("http://localhost:3000/api/latest")
@@ -76,12 +83,16 @@ function FormPage({ currencies }) {
   return (
     <Main>
       {isFormView ? (
-        <Form rates={result} />
+        <Form
+          rates={result}
+          handleSelectedCurrencies={handleSelectedCurrencies}
+        />
       ) : (
         <RateHistory
           historyData={historyData}
           currencies={selectedCurrencies}
           baseCurrency={BASE_CURRENCY}
+          multiplier={multiplier}
         />
       )}
     </Main>

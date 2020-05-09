@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 
-function Form({ rates }) {
+function Form({ rates, handleSelectedCurrencies }) {
   const [amount, setAmount] = useState(1);
+  const [selectedCurrencies, setSelectedCurrencies] = useState([]);
   const todaysRates = () => {
-    // return rates.map((rate) => <li>{rate}</li>);
-    console.log(Array.isArray(rates));
     return rates.map(([currency, baseAmount]) => (
-      <li>
-        {currency} {(baseAmount * amount).toFixed(2)}
+      <li key={currency}>
+        <label>
+          <input
+            type="checkbox"
+            name={currency}
+            onChange={handleCheckboxChange}
+          />
+          {currency} {(baseAmount * amount).toFixed(2)}
+        </label>
       </li>
     ));
   };
@@ -16,8 +22,19 @@ function Form({ rates }) {
     console.log(e);
     setAmount(e.target.value);
   };
+
+  const handleCheckboxChange = (e) => {
+    setSelectedCurrencies(selectedCurrencies.concat(e.target.name));
+    console.log(e.target.name);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (selectedCurrencies.length < 2) return null;
+    handleSelectedCurrencies(selectedCurrencies, amount);
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label>
         {/* TODO: replace EUR with base currency */}
         Enter a value for EUR

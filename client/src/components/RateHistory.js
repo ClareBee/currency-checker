@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { formatDate } from "../utils/formatting";
 
-function RateHistory({ historyData, currencies, baseCurrency }) {
+function RateHistory({ historyData, currencies, baseCurrency, multiplier }) {
   const resetForm = () => {
     console.log("resetting");
   };
@@ -12,10 +12,10 @@ function RateHistory({ historyData, currencies, baseCurrency }) {
     if (historyData.length > 0) {
       return historyData.map(({ date, rates }) => {
         return (
-          <tr>
+          <tr key={date}>
             <th scope="row">{formatDate(date)}</th>
             {Object.values(rates).map((rate) => (
-              <td key={uuidv4()}>{rate}</td>
+              <td key={uuidv4()}>{rate * multiplier}</td>
             ))}
           </tr>
         );
@@ -34,7 +34,7 @@ function RateHistory({ historyData, currencies, baseCurrency }) {
   };
 
   const captionText = () => {
-    return `Table comparing exchange rates for ${baseCurrency} ${currencies.join(
+    return `Table comparing exchange rates for ${baseCurrency} with ${currencies.join(
       ","
     )}`;
   };
