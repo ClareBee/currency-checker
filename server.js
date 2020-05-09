@@ -43,8 +43,12 @@ app.get("/api/history", cors(corsOptions), (req, res, next) => {
   // TODO pass in on request?
   const daysAgo = 5;
   const base = "EUR";
-  const currencies = "GBP,JPY,EUR";
-
+  const currencies = req.query.currencies;
+  console.log("currencies", currencies);
+  if (currencies.length < 1) {
+    console.log("error");
+    return res.send({ error: "No currencies submitted" });
+  }
   const urls = [];
   for (let i = 1; i <= daysAgo; i++) {
     let date = startDate(i);

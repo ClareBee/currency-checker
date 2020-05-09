@@ -42,12 +42,18 @@ function FormPage({ currencies }) {
 
   const apiGetHistoryRates = (targetCurrencies) => {
     axios
-      .get("http://localhost:3000/api/history")
+      .get("http://localhost:3000/api/history", {
+        params: {
+          currencies: selectedCurrencies,
+        },
+      })
       .then((response) => {
+        const data = {};
         const historyRates = response.data.data.map(({ date, rates }) => {
           return { date, rates };
         });
         setHistoryData(historyRates);
+        console.log(data);
       })
       .catch((error) => {
         setError(error);
@@ -70,7 +76,11 @@ function FormPage({ currencies }) {
       {isFormView ? (
         <Form rates={result} />
       ) : (
-        <RateHistory historyData={historyData} />
+        <RateHistory
+          historyData={historyData}
+          currencies={selectedCurrencies}
+          baseCurrency={BASE_CURRENCY}
+        />
       )}
     </Main>
   );
