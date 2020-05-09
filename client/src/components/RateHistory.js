@@ -1,4 +1,6 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import { formatDate } from "../utils/formatting";
 
 function RateHistory({ historyData, currencies, baseCurrency }) {
@@ -13,7 +15,7 @@ function RateHistory({ historyData, currencies, baseCurrency }) {
           <tr>
             <th scope="row">{formatDate(date)}</th>
             {Object.values(rates).map((rate) => (
-              <td>{rate}</td>
+              <td key={uuidv4()}>{rate}</td>
             ))}
           </tr>
         );
@@ -21,9 +23,12 @@ function RateHistory({ historyData, currencies, baseCurrency }) {
     }
   };
   const formatHeaders = () => {
+    console.log(historyData);
     if (historyData.length > 0) {
       return Object.keys(historyData[0].rates).map((key) => (
-        <th scope="col">{key}</th>
+        <th scope="col" key={key}>
+          {key}
+        </th>
       ));
     }
   };
