@@ -37,6 +37,7 @@ On localhost:
 - `axios` for easier error handling and better browser support than fetch (using promise chaining rather than try/catch block with async/await, as find it easier to read in this case!)
 - `react-debounce-input` to limit API calls
 - `prop-types` for basic type checking
+- Jest & React Testing Library for testing (more focus on user behaviour)
 
 ### Accessibility
 
@@ -51,9 +52,6 @@ On localhost:
 
 - Form validation needs to be improved - errors could be 'inline'. Would need to be accessible too (aria-invalid).
 - Server code could be organised into separate files (routes/controllers etc.) & could have Helmet for security
-- More comprehensive testing could be added
-
+- More comprehensive tests could be added: currently minimal at 68% coverage for React & missing Express/Node testing completely
 
 <img align="center" src="./form.jpg" alt="form" width="350">
-
-
