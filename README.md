@@ -1,5 +1,10 @@
 # FreeAgent Coding Challenge
 
+---
+
+<img src="./form" alt="form" width="450">
+<img src="./result" alt="result" width="450">
+
 ## Your Solution Setup and Run Instructions
 
 On localhost:
@@ -29,10 +34,12 @@ On localhost:
 
 - React for automatic updates to DOM
 - Node async to combine results from history api: https://caolan.github.io/async/v3/
-- Webpack & babel for cross-browser compatibility/code optimization. Set up from scratch rather than via create-react-app to allow for customisability
+- Webpack & Babel for cross-browser compatibility/code optimization. Set up from scratch rather than via create-react-app to allow for customisability
 - scss for variables with better browser support than css variables
-- 7-in-1 scss organisation
+- 7-in-1 SCSS organisation
 - axios for easier error handling and better browser support than fetch (using promise chaining rather than try/catch block w async/await as find it easier to read in this case!)
+- react-debounce-input to limit API calls
+- prop-types for basic type checking
 
 ### Accessibility
 
@@ -47,3 +54,4 @@ On localhost:
 
 - form validation needs to be improved - errors could be 'inline'. Would need to be accessible too (aria-invalid).
 - server code could be organised into separate files (routes/controllers etc.) & could have Helmet for security
+- more comprehensive testing could be added

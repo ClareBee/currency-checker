@@ -5,6 +5,7 @@ import DataContext from "./DataContext";
 import Error from "./layout/Error";
 
 const REQUIRED_NUM = 2;
+
 function Form({ rates, handleSelectedCurrencies }) {
   const [amount, setAmount] = useState(1);
   const [selectedCurrencies, setSelectedCurrencies] = useState([]);
@@ -13,7 +14,6 @@ function Form({ rates, handleSelectedCurrencies }) {
 
   const handleChange = (e) => {
     const input = e.target.value;
-    // check if input numeric
     if (input.match(/\D+/g)) {
       setError("Not a number");
       return null;
@@ -38,7 +38,6 @@ function Form({ rates, handleSelectedCurrencies }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: replace naive error handling with inline and accessible feedback
     if (selectedCurrencies.length !== REQUIRED_NUM) {
       setError("Sorry! Wrong number of currencies selected.");
       setSelectedCurrencies([]);
