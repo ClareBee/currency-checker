@@ -1,4 +1,4 @@
-// https://webaim.org/techniques/css/invisiblecontent/#techniques
+/* https://webaim.org/techniques/css/invisiblecontent/#techniques */
 .screenreader-only {
   position: absolute;
   left: -10000px;
@@ -7,10 +7,6 @@
   height: 1px;
   overflow: hidden;
 }
-
-// .hidden {
-//   border: transparent;
-// }
 
 .error {
   border: 1px solid $error-colour;

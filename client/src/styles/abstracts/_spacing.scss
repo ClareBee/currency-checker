@@ -6,8 +6,6 @@ $space-xs: 0.5 * $space-unit; // 8px
 $space-sm: 0.75 * $space-unit; // 12px
 $space-md: 1.25 * $space-unit; // 20px
 $space-lg: 2 * $space-unit; // 32px
-$space-xl: 3.25 * $space-unit; // 52px
-$space-xxl: 5.25 * $space-unit; // 84px
 
 /* components padding */
 $component-padding: $space-sm;
@@ -15,12 +13,6 @@ $component-padding: $space-sm;
 .component {
   padding-top: $component-padding;
 }
-
-/* TODO: optional - edit space unit and padding of all components at a specific breakpoint */
-// @include breakpoint(md) {
-//   $space-unit: 1.25em;
-//   $component-padding: $space-md;
-// }
 
 /* vertical margins */
 .margin-top,
@@ -36,14 +28,6 @@ $component-padding: $space-sm;
   margin-top: $space-lg;
 }
 
-.margin-top--xl {
-  margin-top: $space-xl;
-}
-
-.margin-top--xxl {
-  margin-top: $space-xxl;
-}
-
 .margin-bottom,
 .margin-bottom--md {
   margin-bottom: $space-md;
@@ -55,12 +39,4 @@ $component-padding: $space-sm;
 
 .margin-bottom--lg {
   margin-bottom: $space-lg;
-}
-
-.margin-bottom--xl {
-  margin-bottom: $space-xl;
-}
-
-.margin-bottom--xxl {
-  margin-bottom: $space-xxl;
 }

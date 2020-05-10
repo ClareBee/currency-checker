@@ -3,11 +3,14 @@ import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import { formatDate } from "../utils/formatting";
 import { DataContext } from "./App";
+
 function RateHistory({ historyData, selectedCurrencies, multiplier, reset }) {
+  const { baseCurrency } = useContext(DataContext);
+
   const resetForm = () => {
     reset();
   };
-  const { baseCurrency } = useContext(DataContext);
+
   const formatRows = () => {
     if (historyData.length > 0) {
       return historyData.map(({ date, rates }) => {

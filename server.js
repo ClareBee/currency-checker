@@ -21,7 +21,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/dist/index.html"));
 });
 
-// TODO: move to routes folder
 app.get("/api/latest", cors(corsOptions), (req, res, next) => {
   if (API_URL === undefined || API_KEY === undefined) {
     return res.status(422).send("Missing configuration");
