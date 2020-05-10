@@ -12,13 +12,11 @@ const CLIENT = process.env.CLIENT_URL;
 
 const app = express();
 const port = process.env.PORT || 3000;
-console.log(process.env);
 // move to .env file
 const corsOptions = {
   origin: "http://localhost:8080",
 };
-app.use(express.static(path.join(__dirname, "client/dist")));
-app.listen(port, () => console.log(`Server Running on ${port}!`));
+app.use(express.static(path.join(__dirname, "client", "dist")));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/dist/index.html"));
@@ -31,7 +29,6 @@ app.get("/api/latest", cors(corsOptions), (req, res, next) => {
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       res.send({ data });
     })
     .catch((err) => {
@@ -70,6 +67,7 @@ app.get("/api/history", cors(corsOptions), (req, res, next) => {
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/dist/index.html"));
 });
+app.listen(port, () => console.log(`Server Running on ${port}!`));
 
 function startDate(daysAgo) {
   let startPoint = new Date();
