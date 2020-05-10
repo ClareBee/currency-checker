@@ -2,9 +2,6 @@
 
 ---
 
-<img src="./form" alt="form" width="450">
-<img src="./result" alt="result" width="450">
-
 ## Your Solution Setup and Run Instructions
 
 On localhost:
@@ -15,7 +12,7 @@ On localhost:
 
 - a free Fixer key is available from https://fixer.io/
 
-1. From the command line:
+2. From the command line:
    `npm install`
    `npm run build`
 
@@ -26,32 +23,37 @@ On localhost:
 
 ### Architecture:
 
-- currencies determined by client rather than server endpoint, to allow for flexibility
-- page-based architecture to allow for persistent navbar/footer and rerendering of <main> e.g. through react-router
-- page-level data retrieval (rather than top-level/app) to allow for different types of api call elsewhere if app extended
+- Currencies determined by client rather than server endpoint, to allow for flexibility
+- Page-based architecture to allow for persistent navbar/footer and rerendering of <main> e.g. through react-router
+- Page-level data retrieval (rather than top-level/app) to allow for different types of api call elsewhere if app extended
 
 ### Tech choices
 
 - React for automatic updates to DOM
 - Node async to combine results from history api: https://caolan.github.io/async/v3/
 - Webpack & Babel for cross-browser compatibility/code optimization. Set up from scratch rather than via create-react-app to allow for customisability
-- scss for variables with better browser support than css variables
+- SCSS for variables with better browser support than CSS variables
 - 7-in-1 SCSS organisation
-- axios for easier error handling and better browser support than fetch (using promise chaining rather than try/catch block w async/await as find it easier to read in this case!)
-- react-debounce-input to limit API calls
-- prop-types for basic type checking
+- `axios` for easier error handling and better browser support than fetch (using promise chaining rather than try/catch block with async/await, as find it easier to read in this case!)
+- `react-debounce-input` to limit API calls
+- `prop-types` for basic type checking
 
 ### Accessibility
 
-- wireframe green failed accessibility checks as insufficient contrast. Replaced with a darker colour, but this could be reversed (https://webaim.org/resources/contrastchecker/)
-- checkboxes rather than multiple select as more accessible https://webaim.org/techniques/forms/controls#checkbox
-- checkboxes left as visible to enable tabbing through: using Tab for forwards, Tab+Shift for backwards and space bar to select
-- hiding the checkboxes to match the wireframe would prevent this (if appearance is crucial, then checkboxes can be set to opacity 0)
+- Green colour on wireframe failed accessibility checks as insufficient contrast. Replaced with a darker colour, but this could be reversed (https://webaim.org/resources/contrastchecker/)!
+- Checkboxes rather than multiple select as more accessible https://webaim.org/techniques/forms/controls#checkbox
+- Checkboxes left as visible to enable tabbing through: using Tab for forwards, Tab+Shift for backwards and space bar to select
+- Hiding the checkboxes to match the wireframe would prevent this (if appearance is crucial, then checkboxes can be set to opacity 0)
 - Lighthouse score of 100
-- semantic HTMl used wherever possible, aria attributes where needed (table rows/columns, inputs, errors)
+- Semantic HTMl used wherever possible, aria attributes where needed (table rows/columns, inputs, errors)
 
 ## Improvements:
 
-- form validation needs to be improved - errors could be 'inline'. Would need to be accessible too (aria-invalid).
-- server code could be organised into separate files (routes/controllers etc.) & could have Helmet for security
-- more comprehensive testing could be added
+- Form validation needs to be improved - errors could be 'inline'. Would need to be accessible too (aria-invalid).
+- Server code could be organised into separate files (routes/controllers etc.) & could have Helmet for security
+- More comprehensive testing could be added
+
+
+<img align="center" src="./form.jpg" alt="form" width="350">
+
+
