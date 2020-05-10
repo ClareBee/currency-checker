@@ -1,11 +1,16 @@
-import React, { useState } from "react";
-import Error from "./Error";
+import React, { useState, useContext } from "react";
+import { DebounceInput } from "react-debounce-input";
+import { DataContext } from "./App";
+
+import Error from "./layout/Error";
 
 const REQUIRED_NUM = 2;
-function Form({ rates, handleSelectedCurrencies, baseCurrency }) {
+function Form({ rates, handleSelectedCurrencies }) {
   const [amount, setAmount] = useState(1);
   const [selectedCurrencies, setSelectedCurrencies] = useState([]);
   const [error, setError] = useState("");
+  const { baseCurrency } = useContext(DataContext);
+
   const todaysRates = () => {
     return rates.map(([currency, baseAmount]) => (
       <li
@@ -26,14 +31,22 @@ function Form({ rates, handleSelectedCurrencies, baseCurrency }) {
             onChange={handleCheckboxChange}
             className="screenreader-only"
           />
-          <div>{currency}</div>
-          <div>{(baseAmount * amount).toFixed(2)}</div>
+          <div className="currency__key">{currency}</div>
+          <div className="currency__amount">
+            {(baseAmount * amount).toFixed(2)}
+          </div>
         </label>
       </li>
     ));
   };
 
   const handleChange = (e) => {
+    const input = e.target.value;
+    // check if input numeric
+    if (input.match(/\D+/g)) {
+      setError("Not a number");
+      return "null";
+    }
     setError("");
     setAmount(e.target.value);
   };
@@ -58,12 +71,12 @@ function Form({ rates, handleSelectedCurrencies, baseCurrency }) {
       {error && <Error message={error} />}
       <label>
         <p className="currency__label">Enter a value for {baseCurrency}</p>
-        <input
+        <DebounceInput
+          minLength={1}
           className="margin-bottom margin-top--sm currency__input"
-          type="number"
-          name="amount"
-          value={amount}
+          debounceTimeout={300}
           onChange={handleChange}
+          value={amount}
         />
       </label>
       <label className="margin-top currency__label">

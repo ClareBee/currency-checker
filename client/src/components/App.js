@@ -3,7 +3,6 @@ import FormPage from "./pages/FormPage";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 
-//TODO: discover endpoint on server?
 const CURRENCIES = [
   "USD",
   "EUR",
@@ -16,14 +15,20 @@ const CURRENCIES = [
   "NZD",
 ];
 
+const BASE_CURRENCY = "EUR";
+
+export const DataContext = React.createContext();
+
 function App() {
   return (
-    <>
+    <DataContext.Provider
+      value={{ currencies: CURRENCIES, baseCurrency: BASE_CURRENCY }}
+    >
       <Header />
       {/* main content modifiable with navbar/router */}
-      <FormPage currencies={CURRENCIES} />
+      <FormPage />
       <Footer />
-    </>
+    </DataContext.Provider>
   );
 }
 

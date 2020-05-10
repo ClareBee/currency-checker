@@ -7,3 +7,10 @@
   height: 1px;
   overflow: hidden;
 }
+
+.error {
+  border: 1px solid $error-colour;
+  border-radius: 5px;
+  padding: $component-padding;
+  text-align: center;
+}

@@ -1,18 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { formatDate } from "../utils/formatting";
-
-function RateHistory({
-  historyData,
-  currencies,
-  baseCurrency,
-  multiplier,
-  reset,
-}) {
+import { DataContext } from "./App";
+function RateHistory({ historyData, selectedCurrencies, multiplier, reset }) {
   const resetForm = () => {
     reset();
   };
-
+  const { baseCurrency } = useContext(DataContext);
   const formatRows = () => {
     if (historyData.length > 0) {
       return historyData.map(({ date, rates }) => {
@@ -27,6 +21,7 @@ function RateHistory({
       });
     }
   };
+
   const formatHeaders = () => {
     if (historyData.length > 0) {
       return Object.keys(historyData[0].rates).map((key) => (
@@ -38,20 +33,20 @@ function RateHistory({
   };
 
   const captionText = () => {
-    return `Table comparing exchange rates for ${baseCurrency} with ${currencies.join(
+    return `Table comparing exchange rates for ${baseCurrency} with ${selectedCurrencies.join(
       ","
     )}`;
   };
+
   return (
     <div className="results">
       <div className="results__header">
         <h3 className="results__title">
-          {multiplier}
-          {baseCurrency}
+          {multiplier} {baseCurrency}
         </h3>
+        <p className="secondary-text">(amount entered in step 1)</p>
       </div>
-      <p className="secondary-text">Amount entered in step 1</p>
-      <table className="results__table">
+      <table className="results__table margin-top--lg margin-bottom--lg">
         <caption className="screenreader-only">{captionText()}</caption>
         <tbody>
           <tr>
@@ -61,9 +56,11 @@ function RateHistory({
           {formatRows()}
         </tbody>
       </table>
-      <button className="btn btn--primary" onClick={resetForm}>
-        Reset Form
-      </button>
+      {historyData.length > 1 && (
+        <button className="btn btn--primary" onClick={resetForm}>
+          Reset Form
+        </button>
+      )}
     </div>
   );
 }

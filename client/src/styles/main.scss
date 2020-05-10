@@ -15,7 +15,8 @@
 @import "layout/flex_layout";
 
 /* 5. Components */
-@import "components/button", "components/form", "components/results";
+@import "components/button", "components/form", "components/results",
+  "components/loader";
 
 /* 6. Page-specific styles */
 @import "pages/form-page";
