@@ -2,6 +2,7 @@ import React from "react";
 import FormPage from "./pages/FormPage";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
+import DataContext from "./DataContext";
 
 const CURRENCIES = [
   "USD",
@@ -16,8 +17,6 @@ const CURRENCIES = [
 ];
 
 const BASE_CURRENCY = "EUR";
-
-export const DataContext = React.createContext();
 
 function App() {
   return (

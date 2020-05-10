@@ -2,13 +2,14 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import { formatDate } from "../utils/formatting";
-import { DataContext } from "./App";
+import DataContext from "./DataContext";
 
 function RateHistory({ historyData, selectedCurrencies, multiplier, reset }) {
   const { baseCurrency } = useContext(DataContext);
 
   const resetForm = () => {
     reset();
+    return null;
   };
 
   const formatRows = () => {
@@ -24,6 +25,7 @@ function RateHistory({ historyData, selectedCurrencies, multiplier, reset }) {
         );
       });
     }
+    return null;
   };
 
   const formatHeaders = () => {
@@ -34,6 +36,7 @@ function RateHistory({ historyData, selectedCurrencies, multiplier, reset }) {
         </th>
       ));
     }
+    return null;
   };
 
   const captionText = () => {
@@ -61,7 +64,7 @@ function RateHistory({ historyData, selectedCurrencies, multiplier, reset }) {
         </tbody>
       </table>
       {historyData.length > 1 && (
-        <button className="btn btn--primary" onClick={resetForm}>
+        <button className="btn btn--primary" onClick={resetForm} type="button">
           Reset Form
         </button>
       )}
@@ -69,11 +72,16 @@ function RateHistory({ historyData, selectedCurrencies, multiplier, reset }) {
   );
 }
 
-RateHistory.proptypes = {
+RateHistory.defaultProps = {
+  historyData: [],
+  selectedCurrencies: [],
+};
+
+RateHistory.propTypes = {
   reset: PropTypes.func.isRequired,
   multiplier: PropTypes.number.isRequired,
-  historyData: PropTypes.array.isRequired,
-  selectedCurrencies: PropTypes.array.isRequired,
+  historyData: PropTypes.array,
+  selectedCurrencies: PropTypes.array,
 };
 
 export default RateHistory;

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { DebounceInput } from "react-debounce-input";
 import PropTypes from "prop-types";
-import { DataContext } from "./App";
+import DataContext from "./DataContext";
 import Error from "./layout/Error";
 
 const REQUIRED_NUM = 2;
@@ -10,6 +10,43 @@ function Form({ rates, handleSelectedCurrencies }) {
   const [selectedCurrencies, setSelectedCurrencies] = useState([]);
   const [error, setError] = useState("");
   const { baseCurrency } = useContext(DataContext);
+
+  const handleChange = (e) => {
+    const input = e.target.value;
+    // check if input numeric
+    if (input.match(/\D+/g)) {
+      setError("Not a number");
+      return null;
+    }
+    setError("");
+    setAmount(e.target.value);
+    return null;
+  };
+
+  const handleCheckboxChange = (e) => {
+    setError("");
+    const currency = e.target.name;
+    if (selectedCurrencies.includes(currency)) {
+      setSelectedCurrencies(
+        selectedCurrencies.filter((curr) => curr !== currency)
+      );
+    } else {
+      setSelectedCurrencies(selectedCurrencies.concat(currency));
+    }
+    return null;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // TODO: replace naive error handling with inline and accessible feedback
+    if (selectedCurrencies.length !== REQUIRED_NUM) {
+      setError("Sorry! Wrong number of currencies selected.");
+      setSelectedCurrencies([]);
+      return null;
+    }
+    handleSelectedCurrencies(selectedCurrencies, amount);
+    return null;
+  };
 
   const todaysRates = () => {
     return rates.map(([currency, baseAmount]) => (
@@ -40,45 +77,14 @@ function Form({ rates, handleSelectedCurrencies }) {
       </li>
     ));
   };
-
-  const handleChange = (e) => {
-    const input = e.target.value;
-    // check if input numeric
-    if (input.match(/\D+/g)) {
-      setError("Not a number");
-      return "null";
-    }
-    setError("");
-    setAmount(e.target.value);
-  };
-
-  const handleCheckboxChange = (e) => {
-    setError("");
-    const currency = e.target.name;
-    if (selectedCurrencies.includes(currency)) {
-      setSelectedCurrencies(
-        selectedCurrencies.filter((curr) => curr !== currency)
-      );
-    } else {
-      setSelectedCurrencies(selectedCurrencies.concat(currency));
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // TODO: replace naive error handling with inline and accessible feedback
-    if (selectedCurrencies.length !== REQUIRED_NUM) {
-      setError(`Sorry! Wrong number of currencies selected.`);
-      setSelectedCurrencies([]);
-      return null;
-    }
-    handleSelectedCurrencies(selectedCurrencies, amount);
-  };
   return (
     <form onSubmit={handleSubmit} className="component margin-top--sm">
       {error && <Error msg={error} />}
       <label htmlFor="currencyInput">
-        <p className="currency__label">Enter a value for {baseCurrency}</p>
+        <p className="currency__label">
+          Enter a value for
+          {baseCurrency}
+        </p>
         <DebounceInput
           minLength={1}
           className="margin-bottom margin-top--sm currency__input"
@@ -87,12 +93,12 @@ function Form({ rates, handleSelectedCurrencies }) {
           value={amount}
           name="currencyInput"
           aria-required="true"
-          autoFocus={true}
+          autoFocus
         />
       </label>
-      <label className="margin-top currency__label">
+      <p className="margin-top currency__label">
         Please select {REQUIRED_NUM}...
-      </label>
+      </p>
       <ul className="margin-top--sm currency__list">{todaysRates()}</ul>
       <button
         disabled={!!error}
@@ -105,7 +111,11 @@ function Form({ rates, handleSelectedCurrencies }) {
   );
 }
 
-Form.proptypes = {
+Form.defaultProps = {
+  rates: [],
+};
+
+Form.propTypes = {
   rates: PropTypes.array,
   handleSelectedCurrencies: PropTypes.func.isRequired,
 };

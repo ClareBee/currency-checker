@@ -14,4 +14,25 @@
 main {
   flex-grow: 1;
   background-color: $white-colour;
+  width: 90%;
+  @include md {
+    width: 45%;
+  }
+}
+
+header {
+  @include md {
+    width: 100%;
+    text-align: left;
+    border-bottom: solid 4px $primary-colour;
+  }
+}
+
+footer {
+  @include md {
+    width: 100%;
+    text-align: left;
+    padding-top: $space-md;
+    margin-bottom: $space-sm;
+  }
 }

@@ -28,6 +28,7 @@ On localhost:
 ### Tech choices
 
 - React for automatic updates to DOM
+- Node async to combine results from history api: https://caolan.github.io/async/v3/
 - Webpack & babel for cross-browser compatibility/code optimization. Set up from scratch rather than via create-react-app to allow for customisability
 - scss for variables with better browser support than css variables
 - 7-in-1 scss organisation

@@ -5,7 +5,8 @@ import Loader from "../layout/Loader";
 import Form from "../Form";
 import RateHistory from "../RateHistory";
 import ErrorMsg from "../layout/Error";
-import { DataContext } from "../App";
+import DataContext from "../DataContext";
+import { formatResults } from "../../utils/formatting";
 
 function FormPage() {
   const [result, setResult] = useState([]);
@@ -27,29 +28,6 @@ function FormPage() {
       ? "http://localhost:3000/api/history"
       : "/api/history";
 
-  useEffect(() => {
-    apiGetExchangeRate(baseCurrency);
-  }, []);
-
-  useEffect(() => {
-    if (!isFormView) {
-      apiGetHistoryRates(selectedCurrencies);
-    }
-  }, [selectedCurrencies]);
-
-  const handleSelectedCurrencies = (currencies, amount) => {
-    setIsFetching(true);
-    setSelectedCurrencies(currencies);
-    setMultiplier(amount);
-    setIsFormView(false);
-  };
-
-  const reset = () => {
-    setIsFormView(true);
-    setSelectedCurrencies([]);
-    setMultiplier(1);
-    setHistoryData([]);
-  };
   const apiGetExchangeRate = () => {
     axios
       .get(LATEST_URL)
@@ -57,7 +35,7 @@ function FormPage() {
         const {
           data: { rates },
         } = response;
-        const data = formatResults(rates);
+        const data = formatResults(rates, currencies, baseCurrency);
         setResult(data);
       })
       .catch((error) => {
@@ -66,6 +44,7 @@ function FormPage() {
       .finally(() => {
         setIsFetching(false);
       });
+    return null;
   };
 
   const apiGetHistoryRates = () => {
@@ -74,7 +53,7 @@ function FormPage() {
         params: {
           currencies: selectedCurrencies,
           daysAgo: 5,
-          baseCurrency: baseCurrency,
+          baseCurrency,
         },
       })
       .then((response) => {
@@ -85,6 +64,7 @@ function FormPage() {
           return setErrorMsg("Something went wrong");
         }
         setHistoryData(historyRates);
+        return null;
       })
       .catch((error) => {
         console.log(error);
@@ -92,15 +72,33 @@ function FormPage() {
       .finally(() => {
         setIsFetching(false);
       });
+    return null;
   };
 
-  const formatResults = (resultObject) => {
-    const results = Object.entries(resultObject);
-    return results.filter(
-      ([currency, ,]) =>
-        currencies.includes(currency) && currency !== baseCurrency
-    );
+  useEffect(() => {
+    apiGetExchangeRate(baseCurrency);
+  }, []);
+
+  useEffect(() => {
+    if (!isFormView) {
+      apiGetHistoryRates(selectedCurrencies);
+    }
+  }, [selectedCurrencies]);
+
+  const handleSelectedCurrencies = (curr, mult) => {
+    setIsFetching(true);
+    setSelectedCurrencies(curr);
+    setMultiplier(mult);
+    setIsFormView(false);
   };
+
+  const reset = () => {
+    setIsFormView(true);
+    setSelectedCurrencies([]);
+    setMultiplier(1);
+    setHistoryData([]);
+  };
+
   return (
     <Main>
       {errorMsg && <ErrorMsg msg={errorMsg} />}
@@ -114,7 +112,7 @@ function FormPage() {
         <RateHistory
           historyData={historyData}
           selectedCurrencies={selectedCurrencies}
-          multiplier={multiplier}
+          multiplier={Number(multiplier)}
           reset={reset}
         />
       )}

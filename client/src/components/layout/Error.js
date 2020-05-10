@@ -10,7 +10,7 @@ function ErrorMsg({ msg }) {
 }
 
 ErrorMsg.propTypes = {
-  msg: PropTypes.string,
+  msg: PropTypes.string.isRequired,
 };
 
 export default ErrorMsg;
