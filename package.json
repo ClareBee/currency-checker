@@ -15,7 +15,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npm-run-all --parallel server client",
     "build": "npm-run-all --serial server client:install client:build",
-    "start": "npm run build"
+    "start": "npm"
   },
   "author": "Freeagent",
   "license": "ISC",
