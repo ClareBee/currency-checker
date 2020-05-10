@@ -10,9 +10,8 @@ function Form({ rates, handleSelectedCurrencies }) {
   const [selectedCurrencies, setSelectedCurrencies] = useState([]);
   const [error, setError] = useState("");
   const { baseCurrency } = useContext(DataContext);
-
   const todaysRates = () => {
-    return rates.map(([currency, baseAmount]) => (
+    return rates.map(([currency, baseAmount], index) => (
       <li
         key={currency}
         className="currency__row"
@@ -22,14 +21,15 @@ function Form({ rates, handleSelectedCurrencies }) {
             : "",
         }}
       >
-        <label>
-          <p className="screenreader-only">{currency}</p>
+        <label htmlFor={currency}>
           <input
             type="checkbox"
             name={currency}
+            id={currency}
             checked={selectedCurrencies.includes(currency)}
+            aria-checked={selectedCurrencies.includes(currency)}
             onChange={handleCheckboxChange}
-            className="screenreader-only"
+            className="currency__checkbox"
           />
           <div className="currency__key">{currency}</div>
           <div className="currency__amount">
@@ -53,12 +53,19 @@ function Form({ rates, handleSelectedCurrencies }) {
 
   const handleCheckboxChange = (e) => {
     setError("");
-    setSelectedCurrencies(selectedCurrencies.concat(e.target.name));
+    const currency = e.target.name;
+    if (selectedCurrencies.includes(currency)) {
+      setSelectedCurrencies(
+        selectedCurrencies.filter((curr) => curr !== currency)
+      );
+    } else {
+      setSelectedCurrencies(selectedCurrencies.concat(currency));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: replace naive error handling
+    // TODO: replace naive error handling with inline and accessible feedback
     if (selectedCurrencies.length !== REQUIRED_NUM) {
       setError(`Sorry! Wrong number of currencies selected.`);
       setSelectedCurrencies([]);
@@ -69,7 +76,7 @@ function Form({ rates, handleSelectedCurrencies }) {
   return (
     <form onSubmit={handleSubmit} className="component margin-top--sm">
       {error && <Error message={error} />}
-      <label>
+      <label htmlFor="currencyInput">
         <p className="currency__label">Enter a value for {baseCurrency}</p>
         <DebounceInput
           minLength={1}
@@ -77,6 +84,9 @@ function Form({ rates, handleSelectedCurrencies }) {
           debounceTimeout={300}
           onChange={handleChange}
           value={amount}
+          name="currencyInput"
+          aria-required="true"
+          autoFocus={true}
         />
       </label>
       <label className="margin-top currency__label">

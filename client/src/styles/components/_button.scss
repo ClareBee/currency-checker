@@ -3,6 +3,7 @@
   padding: $space-xs $space-sm;
   border-radius: 5px;
   font-weight: bold;
+  text-shadow: 1px 1px 1px $font-colour;
   &--primary {
     color: white;
     background-color: $primary-colour;

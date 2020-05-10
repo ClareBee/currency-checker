@@ -4,6 +4,7 @@ import React from "react";
 function Loader() {
   return (
     <div className="loader-container">
+      <span className="screenreader-only">Loading</span>
       <div className="center loadingio-spinner-ripple-l6elmdeuxi">
         <div className="ldio-eatjss4engm">
           <div></div>

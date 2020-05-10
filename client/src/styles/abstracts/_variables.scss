@@ -1,8 +1,9 @@
 /* colour palette */
-$primary-colour: #1abc9c;
+// $primary-colour: #1abc9c; fails accessibility test
+$primary-colour: #16836f;
 $secondary-colour: #16a085;
 $font-colour: #181a1b;
-$secondary-text-colour: #464849;
+$secondary-text-colour: #595a5b;
 $light-grey-colour: #f5f6f7;
 $mid-grey-colour: #eceeee;
 $dark-grey-colour: #d5d7d9;
