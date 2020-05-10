@@ -12,7 +12,7 @@ function FormPage() {
   const [isFetching, setIsFetching] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const [isFormView, setIsFormView] = useState(true);
-  const [selectedCurrencies, setSelectedCurrencies] = useState(["USD", "NZD"]);
+  const [selectedCurrencies, setSelectedCurrencies] = useState([]);
   const [historyData, setHistoryData] = useState([]);
   const [multiplier, setMultiplier] = useState(1);
 
@@ -28,7 +28,7 @@ function FormPage() {
       : "/api/history";
 
   useEffect(() => {
-    apiGetExchangeRate("EUR");
+    apiGetExchangeRate(baseCurrency);
   }, []);
 
   useEffect(() => {

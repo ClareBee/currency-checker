@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function ErrorMsg({ msg }) {
   return (
@@ -7,5 +8,9 @@ function ErrorMsg({ msg }) {
     </div>
   );
 }
+
+ErrorMsg.propTypes = {
+  msg: PropTypes.string,
+};
 
 export default ErrorMsg;

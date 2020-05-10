@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { DebounceInput } from "react-debounce-input";
+import PropTypes from "prop-types";
 import { DataContext } from "./App";
-
 import Error from "./layout/Error";
 
 const REQUIRED_NUM = 2;
@@ -10,8 +10,9 @@ function Form({ rates, handleSelectedCurrencies }) {
   const [selectedCurrencies, setSelectedCurrencies] = useState([]);
   const [error, setError] = useState("");
   const { baseCurrency } = useContext(DataContext);
+
   const todaysRates = () => {
-    return rates.map(([currency, baseAmount], index) => (
+    return rates.map(([currency, baseAmount]) => (
       <li
         key={currency}
         className="currency__row"
@@ -103,4 +104,9 @@ function Form({ rates, handleSelectedCurrencies }) {
     </form>
   );
 }
+
+Form.proptypes = {
+  rates: PropTypes.array,
+  handleSelectedCurrencies: PropTypes.func.isRequired,
+};
 export default Form;

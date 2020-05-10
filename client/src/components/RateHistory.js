@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import { formatDate } from "../utils/formatting";
 import { DataContext } from "./App";
@@ -64,5 +65,12 @@ function RateHistory({ historyData, selectedCurrencies, multiplier, reset }) {
     </div>
   );
 }
+
+RateHistory.proptypes = {
+  reset: PropTypes.func.isRequired,
+  multiplier: PropTypes.number.isRequired,
+  historyData: PropTypes.array.isRequired,
+  selectedCurrencies: PropTypes.array.isRequired,
+};
 
 export default RateHistory;
