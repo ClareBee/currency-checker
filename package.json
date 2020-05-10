@@ -17,7 +17,7 @@
     "dev": "npm-run-all --parallel server client",
     "build": "npm-run-all --serial client:install client:build server",
     "start": "npm build",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "npm run-all --serial client:install client:build"
   },
   "author": "Freeagent",
   "license": "ISC",
