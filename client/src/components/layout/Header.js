@@ -3,7 +3,7 @@ import React from "react";
 function Header() {
   return (
     <header>
-      <h1>ExchangeChecker</h1>
+      <h1 data-testid="heading">ExchangeChecker</h1>
     </header>
   );
 }

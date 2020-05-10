@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 
 function ErrorMsg({ msg }) {
   return (
-    <div className="error margin-bottom--md" aria-live="polite">
+    <div
+      data-testid="error"
+      className="error margin-bottom--md"
+      aria-live="polite"
+    >
       {msg}
     </div>
   );
