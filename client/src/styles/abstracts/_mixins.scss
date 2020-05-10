@@ -1,0 +1,19 @@
+// basic breakpoints
+
+@mixin sm {
+  @media only screen and (min-width: #{$sm-breakpoint}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media only screen and (min-width: #{$md-breakpoint}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media only screen and (min-width: #{$lg-breakpoint}) {
+    @content;
+  }
+}

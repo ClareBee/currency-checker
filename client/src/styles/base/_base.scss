@@ -30,3 +30,19 @@ a {
   text-decoration: none;
   color: $font-colour;
 }
+
+header {
+  @include md {
+    width: 100%;
+    text-align: left;
+    border-bottom: solid 4px $primary-colour;
+  }
+}
+
+footer {
+  @include md {
+    width: 100%;
+    text-align: left;
+    padding-top: $space-md;
+  }
+}

@@ -8,9 +8,10 @@
   flex-direction: column;
   align-items: center;
   margin: calc($space-unit * -1) 0 0 calc($space-unit * -1);
-  padding: $space-md;
+  padding: $space-sm;
 }
 
 main {
   flex-grow: 1;
+  background-color: $white-colour;
 }

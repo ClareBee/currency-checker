@@ -67,7 +67,7 @@ function Form({ rates, handleSelectedCurrencies }) {
     handleSelectedCurrencies(selectedCurrencies, amount);
   };
   return (
-    <form onSubmit={handleSubmit} className="component margin-top">
+    <form onSubmit={handleSubmit} className="component margin-top--sm">
       {error && <Error message={error} />}
       <label>
         <p className="currency__label">Enter a value for {baseCurrency}</p>
