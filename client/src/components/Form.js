@@ -63,6 +63,7 @@ function Form({ rates, handleSelectedCurrencies }) {
             type="checkbox"
             name={currency}
             id={currency}
+            data-testid={currency}
             checked={selectedCurrencies.includes(currency)}
             aria-checked={selectedCurrencies.includes(currency)}
             onChange={handleCheckboxChange}
@@ -80,7 +81,7 @@ function Form({ rates, handleSelectedCurrencies }) {
     <form onSubmit={handleSubmit} className="component margin-top--sm">
       {error && <Error msg={error} />}
       <label htmlFor="currencyInput">
-        <p className="currency__label">
+        <p className="currency__label" data-testid="base-currency">
           Enter a value for
           {baseCurrency}
         </p>

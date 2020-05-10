@@ -4,7 +4,7 @@
   "description": "front-end for currency app",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "build": "webpack --mode=production",
     "start": "webpack-dev-server --open --mode development",
     "lint": "eslint .",
