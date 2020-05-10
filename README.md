@@ -22,3 +22,8 @@ We'd love to hear your thoughts around any design decisions you made while codin
 - scss for variables w better browser support than css variables
 - 7-in-1 scss organisation
 - axios for easier error handling and better browser support than fetch (using promise chaining rather than try/catch block w async/await as find it easier to read in this case!)
+- chose checkboxes rather than multiple select as more accessible https://webaim.org/techniques/forms/controls#checkbox
+
+Improvements:
+
+- form validation needs to be improved - errors could be 'inline'. Would need to be accessible too (aria-invalid).

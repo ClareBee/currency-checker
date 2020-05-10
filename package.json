@@ -14,7 +14,7 @@
     "client:install": "npm install --prefix ./client",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npm-run-all --parallel server client",
-    "build": "npm-run-all --parallel install NODE_ENV=production server client:install client:build",
+    "build": "npm-run-all --parallel server client:install client:build",
     "start": "npm run build"
   },
   "author": "Freeagent",
