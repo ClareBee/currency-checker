@@ -17,6 +17,15 @@ function FormPage() {
 
   const { currencies, baseCurrency } = useContext(DataContext);
 
+  const LATEST_URL =
+    !process.env.NODE_ENV || process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/api/latest"
+      : "/api/latest";
+  const HISTORY_URL =
+    !process.env.NODE_ENV || process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/api/history"
+      : "/api/history";
+
   useEffect(() => {
     apiGetExchangeRate("EUR");
   }, []);
@@ -42,7 +51,7 @@ function FormPage() {
   };
   const apiGetExchangeRate = () => {
     axios
-      .get("http://localhost:3000/api/latest")
+      .get(LATEST_URL)
       .then((response) => {
         const data = formatResults(response.data.data.rates);
         setResult(data);
@@ -58,7 +67,7 @@ function FormPage() {
 
   const apiGetHistoryRates = () => {
     axios
-      .get("http://localhost:3000/api/history", {
+      .get(HISTORY_URL, {
         params: {
           currencies: selectedCurrencies,
           daysAgo: 5,
