@@ -4,12 +4,13 @@ import Main from "../layout/Main";
 import Loader from "../layout/Loader";
 import Form from "../Form";
 import RateHistory from "../RateHistory";
+import ErrorMsg from "../layout/Error";
 import { DataContext } from "../App";
 
 function FormPage() {
   const [result, setResult] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
-  const [error, setError] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const [isFormView, setIsFormView] = useState(true);
   const [selectedCurrencies, setSelectedCurrencies] = useState(["USD", "NZD"]);
   const [historyData, setHistoryData] = useState([]);
@@ -53,12 +54,14 @@ function FormPage() {
     axios
       .get(LATEST_URL)
       .then((response) => {
-        const data = formatResults(response.data.data.rates);
+        const {
+          data: { rates },
+        } = response;
+        const data = formatResults(rates);
         setResult(data);
       })
       .catch((error) => {
-        setError("Something went wrong!");
-        console.log(error);
+        setErrorMsg(error.response.data);
       })
       .finally(() => {
         setIsFetching(false);
@@ -75,16 +78,15 @@ function FormPage() {
         },
       })
       .then((response) => {
-        const historyRates = response.data.data.map(({ date, rates }) => {
+        const historyRates = response.data.map(({ date, rates }) => {
           return { date, rates };
         });
         if (historyRates.length === 0) {
-          return setError("Something went wrong");
+          return setErrorMsg("Something went wrong");
         }
         setHistoryData(historyRates);
       })
       .catch((error) => {
-        setError("Something went wrong");
         console.log(error);
       })
       .finally(() => {
@@ -101,9 +103,10 @@ function FormPage() {
   };
   return (
     <Main>
-      {error && <Error message={error} />}
+      {errorMsg && <ErrorMsg msg={errorMsg} />}
       {isFormView ? (
         <Form
+          errorMsg={errorMsg}
           rates={result}
           handleSelectedCurrencies={handleSelectedCurrencies}
         />

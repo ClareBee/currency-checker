@@ -1,11 +1,11 @@
 import React from "react";
 
-function Error({ message }) {
+function ErrorMsg({ msg }) {
   return (
     <div className="error margin-bottom--md" aria-live="polite">
-      {message}
+      {msg}
     </div>
   );
 }
 
-export default Error;
+export default ErrorMsg;

@@ -75,7 +75,7 @@ function Form({ rates, handleSelectedCurrencies }) {
   };
   return (
     <form onSubmit={handleSubmit} className="component margin-top--sm">
-      {error && <Error message={error} />}
+      {error && <Error msg={error} />}
       <label htmlFor="currencyInput">
         <p className="currency__label">Enter a value for {baseCurrency}</p>
         <DebounceInput
