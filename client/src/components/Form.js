@@ -48,10 +48,12 @@ function Form({ rates, handleSelectedCurrencies }) {
   };
 
   const todaysRates = () => {
+    const classes =
+      rates.length < 1 ? "currency__row currency__row--hide" : "currency__row";
     return rates.map(([currency, baseAmount]) => (
       <li
         key={currency}
-        className="currency__row"
+        className={classes}
         style={{
           backgroundColor: selectedCurrencies.includes(currency)
             ? "#d5d7d9"

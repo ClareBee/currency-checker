@@ -4,9 +4,14 @@
   border-radius: 5px;
   font-weight: bold;
   text-shadow: 1px 1px 1px $font-colour;
+  transition: all 0.2s ease-in;
   &--primary {
     color: white;
     background-color: $primary-colour;
     border: 1px solid $secondary-colour;
+  }
+  &--primary:hover,
+  &--primary:active {
+    background-color: $secondary-colour;
   }
 }

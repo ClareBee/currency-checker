@@ -35,7 +35,7 @@ On localhost:
 - SCSS for variables with better browser support than CSS variables
 - 7-in-1 SCSS organisation
 - `axios` for easier error handling and better browser support than fetch (using promise chaining rather than try/catch block with async/await, as find it easier to read in this case!)
-- `react-debounce-input` to limit API calls
+- `react-debounce-input`
 - `prop-types` for basic type checking
 - Jest & React Testing Library for testing (more focus on user behaviour)
 
@@ -51,7 +51,9 @@ On localhost:
 ## Improvements:
 
 - Form validation needs to be improved - errors could be 'inline'. Would need to be accessible too (aria-invalid).
-- Server code could be organised into separate files (routes/controllers etc.) & could have Helmet for security
+- Server code could be organised into separate files (routes/controllers etc.)
 - More comprehensive tests could be added: currently minimal at 68% coverage for React & missing Express/Node testing completely
+- Add a cache to the backend to prevent unnecessary repeat requests to Fixer.io
+- Smoother transitions via animations
 
 <img align="center" src="./form.jpg" alt="form" width="350">
