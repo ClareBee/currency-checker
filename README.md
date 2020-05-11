@@ -52,7 +52,7 @@ On localhost:
 
 - Form validation needs to be improved - errors could be 'inline'. Would need to be accessible too (aria-invalid).
 - Server code could be organised into separate files (routes/controllers etc.)
-- More comprehensive tests could be added: currently minimal at 68% coverage for React & missing Express/Node testing completely
+- More comprehensive tests could be added: currently minimal at 72% coverage for React & missing Express/Node testing completely
 - Add a cache to the backend to prevent unnecessary repeat requests to Fixer.io
 - Smoother transitions via animations
 
