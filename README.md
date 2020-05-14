@@ -28,4 +28,5 @@ On localhost:
 - Add a cache to the backend to prevent unnecessary repeat requests to Fixer.io
 - Smoother transitions via animations
 
-<img align="center" src="./form.jpg" alt="form" width="350">
+<img align="center" src="./form1.jpg" alt="form" width="350">
+<img align="center" src="./results1.jpg" alt="form" width="350">
