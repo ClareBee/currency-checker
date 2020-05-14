@@ -28,6 +28,9 @@
   &__row:nth-child(even) {
     background-color: $mid-grey-colour;
   }
+  &__row--selected {
+    background-color: $dark-grey-colour;
+  }
   &__key,
   &__amount {
     width: 50%;

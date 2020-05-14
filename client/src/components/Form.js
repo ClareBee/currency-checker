@@ -48,12 +48,14 @@ function Form({ rates, handleSelectedCurrencies }) {
   };
 
   const todaysRates = () => {
-    const classes =
-      rates.length < 1 ? "currency__row currency__row--hide" : "currency__row";
     return rates.map(([currency, baseAmount]) => (
       <li
         key={currency}
-        className={classes}
+        className={
+          selectedCurrencies.includes(currency)
+            ? "currency__row currency__row--selected"
+            : "currency__row"
+        }
         style={{
           backgroundColor: selectedCurrencies.includes(currency)
             ? "#d5d7d9"
@@ -84,8 +86,7 @@ function Form({ rates, handleSelectedCurrencies }) {
       {error && <Error msg={error} />}
       <label htmlFor="currencyInput">
         <p className="currency__label" data-testid="base-currency">
-          Enter a value for
-          {baseCurrency}
+          Enter a value for {baseCurrency}
         </p>
         <DebounceInput
           minLength={1}

@@ -55,13 +55,13 @@ function RateHistory({ historyData, selectedCurrencies, multiplier, reset }) {
       </div>
       <table className="results__table margin-top--lg margin-bottom--lg">
         <caption className="screenreader-only">{captionText()}</caption>
-        <tbody>
+        <thead>
           <tr>
             <th className="results__top-header">Date</th>
             {formatHeaders()}
           </tr>
-          {formatRows()}
-        </tbody>
+        </thead>
+        <tbody>{formatRows()}</tbody>
       </table>
       {historyData.length > 1 && (
         <button className="btn btn--primary" onClick={resetForm} type="button">
